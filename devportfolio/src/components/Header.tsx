@@ -23,6 +23,7 @@ export default function Header({ isDark, onToggleTheme }: HeaderProps) {
     { label: 'Projects', href: '#projects' },
     { label: 'Skills', href: '#skills' },
     { label: 'About', href: '#about' },
+    { label: 'Expriences', href: '#Expriences' },
     { label: 'Contact', href: '#contact' },
   ];
 
@@ -36,8 +37,7 @@ export default function Header({ isDark, onToggleTheme }: HeaderProps) {
     <>
       <nav
         className={`fixed w-full z-50 top-0 transition-all duration-500 ${
-          scrolled
-            ? 'border-b border-border bg-background/80 backdrop-blur-xl' :'bg-transparent'
+          scrolled ? 'border-b border-border bg-background/80 backdrop-blur-xl' : 'bg-transparent'
         }`}
       >
         <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
@@ -49,7 +49,7 @@ export default function Header({ isDark, onToggleTheme }: HeaderProps) {
               className="cursor-pointer"
             />
             <span className="font-bold text-base tracking-tight text-foreground hidden sm:block">
-              DevPortfolio
+              Arash's Portfolio
             </span>
           </div>
 
@@ -81,7 +81,10 @@ export default function Header({ isDark, onToggleTheme }: HeaderProps) {
             {/* CTA */}
             <a
               href="#contact"
-              onClick={(e) => { e.preventDefault(); handleNavClick('#contact'); }}
+              onClick={(e) => {
+                e.preventDefault();
+                handleNavClick('#contact');
+              }}
               className="hidden md:flex items-center gap-2 px-4 py-2 bg-primary text-primary-foreground rounded-lg text-sm font-semibold hover:opacity-90 transition-all duration-200 hover:-translate-y-0.5"
             >
               Hire Me
@@ -113,7 +116,11 @@ export default function Header({ isDark, onToggleTheme }: HeaderProps) {
           ))}
           <a
             href="#contact"
-            onClick={(e) => { e.preventDefault(); handleNavClick('#contact'); setMobileOpen(false); }}
+            onClick={(e) => {
+              e.preventDefault();
+              handleNavClick('#contact');
+              setMobileOpen(false);
+            }}
             className="mt-4 px-8 py-3 bg-primary text-primary-foreground rounded-xl text-base font-bold"
           >
             Hire Me

@@ -8,6 +8,7 @@ import ProjectsSection from '@/app/components/ProjectsSection';
 import SkillsSection from '@/app/components/SkillsSection';
 import AboutSection from '@/app/components/AboutSection';
 import ContactSection from '@/app/components/ContactSection';
+import ExperienceSection from './components/ExperienceSection';
 
 export default function HomePage() {
   const [isDark, setIsDark] = useState(true);
@@ -37,6 +38,7 @@ export default function HomePage() {
         <ProjectsSection />
         <SkillsSection />
         <AboutSection />
+        <ExperienceSection />
         <ContactSection />
       </main>
       <Footer />

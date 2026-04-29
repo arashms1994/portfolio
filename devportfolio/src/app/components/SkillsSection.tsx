@@ -14,9 +14,9 @@ const skillCategories: SkillCategory[] = [
     category: 'Frontend Core',
     icon: 'ComputerDesktopIcon',
     skills: [
-      { name: 'JavaScript (ES2024)', level: 95 },
+      { name: 'JavaScript (ES2024)', level: 90 },
       { name: 'TypeScript', level: 90 },
-      { name: 'HTML5 / CSS3', level: 95 },
+      { name: 'HTML5 / CSS3', level: 100 },
     ],
   },
   {
@@ -24,7 +24,7 @@ const skillCategories: SkillCategory[] = [
     icon: 'CubeIcon',
     skills: [
       { name: 'React 19', level: 92 },
-      { name: 'Next.js 15', level: 88 },
+      { name: 'Next.js 15', level: 90 },
       { name: 'Tailwind CSS', level: 94 },
     ],
   },
@@ -32,18 +32,19 @@ const skillCategories: SkillCategory[] = [
     category: 'Backend & Tools',
     icon: 'ServerIcon',
     skills: [
-      { name: 'Node.js', level: 75 },
-      { name: 'Git / GitHub', level: 90 },
+      { name: 'SharePoint', level: 80 },
+      { name: 'Git / GitHub', level: 85 },
       { name: 'REST APIs', level: 85 },
+      { name: 'Node.js', level: 30 },
     ],
   },
 ];
 
 const techPills = [
   'JavaScript', 'TypeScript', 'React', 'Next.js',
-  'Tailwind CSS', 'Node.js', 'GraphQL', 'Figma',
-  'Vitest', 'Storybook', 'Vercel', 'PostgreSQL',
-  'WebSockets', 'OpenAI API', 'Framer Motion', 'CSS Grid',
+  'Tailwind CSS', 'Node.js', 'Figma',
+  'Vercel', 'PostgreSQL', 'WebSockets', 'OpenAI API',
+  'Framer Motion', 'CSS Grid',
 ];
 
 export default function SkillsSection() {
@@ -162,7 +163,7 @@ export default function SkillsSection() {
                 </span>
               </div>
               <div className="flex flex-col gap-3">
-                {['AI / LLM Integration', 'React Server Components', 'Edge Computing', 'Web Animations API'].map((item) => (
+                {['AI / LLM Integration', 'BackEnd Skills', 'React Server Components'].map((item) => (
                   <div key={item} className="flex items-center gap-3 group">
                     <div className="w-1 h-1 rounded-full bg-primary flex-shrink-0" />
                     <span className="text-sm text-foreground font-medium group-hover:text-primary transition-colors">

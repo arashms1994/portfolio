@@ -4,9 +4,9 @@ import React, { useEffect, useRef, useState } from 'react';
 import Icon from '@/components/ui/AppIcon';
 
 const socials = [
-  { label: 'GitHub', icon: 'CodeBracketIcon', href: 'https://github.com', handle: '@alexrivera' },
-  { label: 'LinkedIn', icon: 'BriefcaseIcon', href: 'https://linkedin.com', handle: 'alex-rivera-dev' },
-  { label: 'Twitter / X', icon: 'ChatBubbleLeftEllipsisIcon', href: 'https://twitter.com', handle: '@alexrivera_dev' },
+  { label: 'GitHub', icon: 'CodeBracketIcon', href: 'https://github.com/arashms1994', handle: '@arashms1994' },
+  { label: 'LinkedIn', icon: 'BriefcaseIcon', href: 'https://www.linkedin.com/in/arashmoghadamsalimi', handle: 'arashmoghadamsalimi' },
+  { label: 'Phone', icon: 'PhoneIcon', href: 'tel:+989127155200', handle: '+98 912 715 5200' },
 ];
 
 export default function ContactSection() {
@@ -31,7 +31,7 @@ export default function ContactSection() {
   }, []);
 
   const handleCopyEmail = () => {
-    navigator.clipboard.writeText('alex.rivera@devportfolio.dev').then(() => {
+    navigator.clipboard.writeText('arash.ms1994@gmail.com').then(() => {
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     });
@@ -89,11 +89,11 @@ export default function ContactSection() {
               {/* Email row */}
               <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
                 <a
-                  href="mailto:alex.rivera@devportfolio.dev"
+                  href="mailto:arash.ms1994@gmail.com"
                   className="flex items-center gap-2 text-lg font-bold text-white dark:text-foreground hover:text-primary transition-colors duration-200"
                 >
                   <Icon name="EnvelopeIcon" size={20} className="text-primary flex-shrink-0" />
-                  alex.rivera@devportfolio.dev
+                  arash.ms1994@gmail.com
                 </a>
                 <button
                   onClick={handleCopyEmail}
@@ -108,7 +108,7 @@ export default function ContactSection() {
               {/* Main CTA */}
               <div className="mt-8">
                 <a
-                  href="mailto:alex.rivera@devportfolio.dev"
+                  href="mailto:arash.ms1994@gmail.com"
                   className="inline-flex items-center gap-2 px-6 py-3.5 bg-primary text-primary-foreground rounded-xl font-bold text-sm hover:opacity-90 transition-all duration-200 hover:-translate-y-0.5 group/cta"
                 >
                   Send Me an Email
