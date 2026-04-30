@@ -144,10 +144,9 @@ export default function AboutSection() {
               </div>
             </div>
 
-            {/* Resume CTA */}
             <div className="mt-8 pt-6 border-t border-border flex items-center justify-between">
               <a
-                href="/documents/resume.pdf"
+                href="documents/Arash-Moghadam-Salimi.pdf"
                 className="inline-flex items-center gap-2 px-5 py-2.5 border border-border rounded-xl text-sm font-semibold text-foreground hover:bg-muted transition-all duration-200 hover:-translate-y-0.5 group"
               >
                 <Icon

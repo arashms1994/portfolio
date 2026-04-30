@@ -4,8 +4,18 @@ import React, { useEffect, useRef, useState } from 'react';
 import Icon from '@/components/ui/AppIcon';
 
 const socials = [
-  { label: 'GitHub', icon: 'CodeBracketIcon', href: 'https://github.com/arashms1994', handle: '@arashms1994' },
-  { label: 'LinkedIn', icon: 'BriefcaseIcon', href: 'https://www.linkedin.com/in/arashmoghadamsalimi', handle: 'arashmoghadamsalimi' },
+  {
+    label: 'GitHub',
+    icon: 'CodeBracketIcon',
+    href: 'https://github.com/arashms1994',
+    handle: '@arashms1994',
+  },
+  {
+    label: 'LinkedIn',
+    icon: 'BriefcaseIcon',
+    href: 'https://www.linkedin.com/in/arashmoghadamsalimi',
+    handle: 'arashmoghadamsalimi',
+  },
   { label: 'Phone', icon: 'PhoneIcon', href: 'tel:+989127155200', handle: '+98 912 715 5200' },
 ];
 
@@ -50,13 +60,16 @@ export default function ContactSection() {
             <span className="text-gradient-lime"> together.</span>
           </h2>
           <p className="text-muted-foreground text-base leading-relaxed">
-            I&apos;m currently open to full-time roles and select freelance projects. If you have something interesting in mind, reach out.
+            I&apos;m currently open to full-time roles and select freelance projects. If you have
+            something interesting in mind, reach out.
           </p>
         </div>
 
         {/* Dark contact card */}
-        <div className="reveal-item scroll-reveal-hidden relative rounded-2xl overflow-hidden border border-border bg-foreground dark:bg-card group transition-all duration-500"
-          style={{ transitionDelay: '100ms' }}>
+        <div
+          className="reveal-item scroll-reveal-hidden relative rounded-2xl overflow-hidden border border-border bg-foreground dark:bg-card group transition-all duration-500"
+          style={{ transitionDelay: '100ms' }}
+        >
           {/* Shimmer on hover */}
           <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-[1500ms] ease-in-out bg-gradient-to-r from-transparent via-white/[0.03] to-transparent pointer-events-none z-0" />
 
@@ -83,7 +96,8 @@ export default function ContactSection() {
                 Say hello.
               </h3>
               <p className="text-white/60 dark:text-muted-foreground text-sm leading-relaxed mb-8 max-w-sm">
-                The best way to reach me is via email. I typically respond within 24 hours on weekdays.
+                The best way to reach me is via email. I typically respond within 24 hours on
+                weekdays.
               </p>
 
               {/* Email row */}
@@ -112,8 +126,29 @@ export default function ContactSection() {
                   className="inline-flex items-center gap-2 px-6 py-3.5 bg-primary text-primary-foreground rounded-xl font-bold text-sm hover:opacity-90 transition-all duration-200 hover:-translate-y-0.5 group/cta"
                 >
                   Send Me an Email
-                  <Icon name="ArrowRightIcon" size={15} className="group-hover/cta:translate-x-0.5 transition-transform" />
+                  <Icon
+                    name="ArrowRightIcon"
+                    size={15}
+                    className="group-hover/cta:translate-x-0.5 transition-transform"
+                  />
                 </a>
+              </div>
+              <div className="mt-8 pt-6 border-t border-border flex items-center justify-between">
+                <a
+                  href="documents/Arash-Moghadam-Salimi.pdf"
+                  className="inline-flex items-center gap-2 px-5 py-2.5 border border-border rounded-xl text-sm font-semibold text-foreground hover:bg-muted transition-all duration-200 hover:-translate-y-0.5 group"
+                >
+                  <Icon
+                    name="DocumentArrowDownIcon"
+                    size={15}
+                    className="text-muted-foreground group-hover:text-primary transition-colors"
+                  />
+                  Download Resume
+                </a>
+                <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
+                  <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
+                  Open to opportunities
+                </div>
               </div>
             </div>
 
@@ -134,14 +169,26 @@ export default function ContactSection() {
                   >
                     <div className="flex items-center gap-3">
                       <div className="w-9 h-9 rounded-lg bg-white/10 dark:bg-card flex items-center justify-center group-hover/social:bg-primary/20 transition-colors">
-                        <Icon name={social.icon as Parameters<typeof Icon>[0]['name']} size={16} className="text-white/60 dark:text-muted-foreground group-hover/social:text-primary transition-colors" />
+                        <Icon
+                          name={social.icon as Parameters<typeof Icon>[0]['name']}
+                          size={16}
+                          className="text-white/60 dark:text-muted-foreground group-hover/social:text-primary transition-colors"
+                        />
                       </div>
                       <div>
-                        <div className="text-sm font-semibold text-white dark:text-foreground">{social.label}</div>
-                        <div className="text-xs text-white/40 dark:text-muted-foreground font-mono">{social.handle}</div>
+                        <div className="text-sm font-semibold text-white dark:text-foreground">
+                          {social.label}
+                        </div>
+                        <div className="text-xs text-white/40 dark:text-muted-foreground font-mono">
+                          {social.handle}
+                        </div>
                       </div>
                     </div>
-                    <Icon name="ArrowTopRightOnSquareIcon" size={14} className="text-white/30 dark:text-muted-foreground group-hover/social:text-primary group-hover/social:translate-x-0.5 group-hover/social:-translate-y-0.5 transition-all" />
+                    <Icon
+                      name="ArrowTopRightOnSquareIcon"
+                      size={14}
+                      className="text-white/30 dark:text-muted-foreground group-hover/social:text-primary group-hover/social:translate-x-0.5 group-hover/social:-translate-y-0.5 transition-all"
+                    />
                   </a>
                 ))}
               </div>
