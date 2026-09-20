@@ -1,7 +1,8 @@
 'use client';
 
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 import Icon from '@/components/ui/AppIcon';
+import { useScrollReveal } from '@/lib/hooks/useScrollReveal';
 
 interface SkillCategory {
   category: string;
@@ -41,51 +42,38 @@ const skillCategories: SkillCategory[] = [
 ];
 
 const techPills = [
-  'JavaScript', 'TypeScript', 'React', 'Next.js',
-  'Tailwind CSS', 'Node.js', 'Figma',
-  'Vercel', 'PostgreSQL', 'WebSockets', 'OpenAI API',
-  'Framer Motion', 'CSS Grid',
+  'JavaScript',
+  'TypeScript',
+  'React',
+  'Next.js',
+  'Tailwind CSS',
+  'Node.js',
+  'Figma',
+  'Vercel',
+  'PostgreSQL',
+  'WebSockets',
+  'OpenAI API',
+  'Framer Motion',
+  'CSS Grid',
 ];
 
 export default function SkillsSection() {
-  const sectionRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('scroll-reveal-visible');
-            entry.target.classList.remove('scroll-reveal-hidden');
-
-            // Animate progress bars
-            const bars = entry.target.querySelectorAll<HTMLElement>('.skill-bar-fill');
-            bars.forEach((bar) => {
-              const target = bar.getAttribute('data-level') || '0';
-              bar.style.width = `${target}%`;
-            });
-          }
-        });
-      },
-      { threshold: 0.15 }
-    );
-
-    const els = sectionRef.current?.querySelectorAll('.reveal-item');
-    els?.forEach((el) => observer.observe(el));
-    return () => observer.disconnect();
-  }, []);
+  const sectionRef = useScrollReveal<HTMLElement>({ threshold: 0.15 });
 
   return (
-    <section id="skills" className="py-24 px-6 border-b border-border bg-secondary/30" ref={sectionRef}>
-      <div className="max-w-6xl mx-auto">
+    <section
+      id="skills"
+      className="relative py-24 px-6 border-b border-border bg-secondary/30 overflow-hidden"
+      ref={sectionRef}
+    >
+      <div className="absolute -bottom-32 -right-24 w-80 h-80 rounded-full bg-primary/10 blur-3xl blob-drift pointer-events-none" />
+      <div className="relative max-w-6xl mx-auto">
         {/* Header */}
         <div className="reveal-item scroll-reveal-hidden mb-14">
           <p className="text-xs font-semibold text-primary uppercase tracking-widest mb-3">
             Technical Stack
           </p>
-          <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-foreground">
-            Skills
-          </h2>
+          <h2 className="text-4xl md:text-5xl font-bold tracking-tight text-foreground">Skills</h2>
         </div>
 
         {/* Asymmetric 60/40 split */}
@@ -101,7 +89,11 @@ export default function SkillsSection() {
                 {/* Category header */}
                 <div className="flex items-center gap-3 mb-5">
                   <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
-                    <Icon name={cat.icon as Parameters<typeof Icon>[0]['name']} size={16} className="text-primary" />
+                    <Icon
+                      name={cat.icon as Parameters<typeof Icon>[0]['name']}
+                      size={16}
+                      className="text-primary"
+                    />
                   </div>
                   <h3 className="text-sm font-semibold text-foreground uppercase tracking-wider">
                     {cat.category}
@@ -118,9 +110,9 @@ export default function SkillsSection() {
                       </div>
                       <div className="h-1.5 bg-muted rounded-full overflow-hidden">
                         <div
-                          className="skill-bar-fill h-full rounded-full transition-all duration-1000 ease-out"
+                          className="skill-bar h-full rounded-full"
                           style={{
-                            width: '0%',
+                            width: `${skill.level}%`,
                             background: 'linear-gradient(90deg, #A8D030, #C8F04C, #E8FF7A)',
                             transitionDelay: `${catIdx * 100 + 200}ms`,
                           }}
@@ -155,7 +147,10 @@ export default function SkillsSection() {
             </div>
 
             {/* Stat card — fills right column */}
-            <div className="reveal-item scroll-reveal-hidden rounded-2xl border border-border bg-card p-6 flex flex-col gap-4" style={{ transitionDelay: '400ms' }}>
+            <div
+              className="reveal-item scroll-reveal-hidden rounded-2xl border border-border bg-card p-6 flex flex-col gap-4"
+              style={{ transitionDelay: '400ms' }}
+            >
               <div className="flex items-center gap-2 mb-1">
                 <div className="w-2 h-2 rounded-full bg-primary" />
                 <span className="text-xs font-semibold text-muted-foreground uppercase tracking-widest">
@@ -163,18 +158,21 @@ export default function SkillsSection() {
                 </span>
               </div>
               <div className="flex flex-col gap-3">
-                {['AI / LLM Integration', 'BackEnd Skills', 'React Server Components'].map((item) => (
-                  <div key={item} className="flex items-center gap-3 group">
-                    <div className="w-1 h-1 rounded-full bg-primary flex-shrink-0" />
-                    <span className="text-sm text-foreground font-medium group-hover:text-primary transition-colors">
-                      {item}
-                    </span>
-                  </div>
-                ))}
+                {['AI / LLM Integration', 'BackEnd Skills', 'React Server Components'].map(
+                  (item) => (
+                    <div key={item} className="flex items-center gap-3 group">
+                      <div className="w-1 h-1 rounded-full bg-primary flex-shrink-0" />
+                      <span className="text-sm text-foreground font-medium group-hover:text-primary transition-colors">
+                        {item}
+                      </span>
+                    </div>
+                  )
+                )}
               </div>
               <div className="pt-3 border-t border-border">
                 <p className="text-xs text-muted-foreground leading-relaxed">
-                  Actively building with AI APIs and exploring the boundaries of what's possible in the browser.
+                  Actively building with AI APIs and exploring the boundaries of what&apos;s
+                  possible in the browser.
                 </p>
               </div>
             </div>

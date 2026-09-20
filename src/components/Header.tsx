@@ -2,16 +2,13 @@
 
 import React, { useState, useEffect } from 'react';
 import AppLogo from '@/components/ui/AppLogo';
+import ThemeToggle from '@/components/ui/ThemeToggle';
 import Icon from '@/components/ui/AppIcon';
 
-interface HeaderProps {
-  isDark: boolean;
-  onToggleTheme: () => void;
-}
-
-export default function Header({ isDark, onToggleTheme }: HeaderProps) {
+export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [active, setActive] = useState('#projects');
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 40);
@@ -19,11 +16,28 @@ export default function Header({ isDark, onToggleTheme }: HeaderProps) {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  useEffect(() => {
+    const sections = Array.from(document.querySelectorAll<HTMLElement>('section[id]'));
+    if (!sections.length) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) setActive(`#${entry.target.id}`);
+        });
+      },
+      { rootMargin: '-45% 0px -50% 0px', threshold: 0 }
+    );
+
+    sections.forEach((section) => observer.observe(section));
+    return () => observer.disconnect();
+  }, []);
+
   const navLinks = [
     { label: 'Projects', href: '#projects' },
     { label: 'Skills', href: '#skills' },
     { label: 'About', href: '#about' },
-    { label: 'Expriences', href: '#Expriences' },
+    { label: 'Experiences', href: '#experiences' },
     { label: 'Contact', href: '#contact' },
   ];
 
@@ -49,7 +63,7 @@ export default function Header({ isDark, onToggleTheme }: HeaderProps) {
               className="cursor-pointer"
             />
             <span className="font-bold text-base tracking-tight text-foreground hidden sm:block">
-              Arash's Portfolio
+              Arash&apos;s Portfolio
             </span>
           </div>
 
@@ -59,10 +73,16 @@ export default function Header({ isDark, onToggleTheme }: HeaderProps) {
               <button
                 key={link.href}
                 onClick={() => handleNavClick(link.href)}
-                className="hover:text-foreground transition-colors duration-200 relative group"
+                className={`transition-colors duration-200 relative group ${
+                  active === link.href ? 'text-foreground' : 'hover:text-foreground'
+                }`}
               >
                 {link.label}
-                <span className="absolute -bottom-0.5 left-0 w-0 h-px bg-primary transition-all duration-300 group-hover:w-full" />
+                <span
+                  className={`absolute -bottom-0.5 left-0 h-px bg-primary transition-all duration-300 ${
+                    active === link.href ? 'w-full' : 'w-0 group-hover:w-full'
+                  }`}
+                />
               </button>
             ))}
           </div>
@@ -70,13 +90,7 @@ export default function Header({ isDark, onToggleTheme }: HeaderProps) {
           {/* Right Controls */}
           <div className="flex items-center gap-3">
             {/* Theme Toggle */}
-            <button
-              onClick={onToggleTheme}
-              aria-label="Toggle dark mode"
-              className="w-9 h-9 flex items-center justify-center rounded-lg border border-border bg-card hover:bg-muted transition-all duration-200 text-muted-foreground hover:text-foreground"
-            >
-              <Icon name={isDark ? 'SunIcon' : 'MoonIcon'} size={16} />
-            </button>
+            <ThemeToggle />
 
             {/* CTA */}
             <a

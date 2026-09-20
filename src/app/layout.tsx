@@ -18,13 +18,25 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'http://localhost:3000'),
   title: 'Arash moghadam salimi — Developer',
-  description: 'Personal portfolio of Arash Moghadam Salimi (developer) specializing in modern web technologies. Available for new opportunities.',
+  description:
+    'Personal portfolio of Arash Moghadam Salimi (developer) specializing in modern web technologies. Available for new opportunities.',
   icons: {
-    icon: [
-      { url: '/favicon.ico', type: 'image/x-icon' }
-    ],
+    icon: [{ url: '/favicon.ico', type: 'image/x-icon' }],
   },
 };
+
+const themeInitScript = `
+(function () {
+  try {
+    var stored = localStorage.getItem('theme');
+    var theme = stored || 'dark';
+    var root = document.documentElement;
+    if (theme === 'dark') root.classList.add('dark');
+    else root.classList.remove('dark');
+    root.style.colorScheme = theme;
+  } catch (e) {}
+})();
+`;
 
 export default function RootLayout({
   children,
@@ -32,10 +44,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={plusJakartaSans.variable} suppressHydrationWarning>
-      <body className={plusJakartaSans.className}>
-        {children}
-</body>
+    <html lang="en" className={`${plusJakartaSans.variable} dark`} suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+      </head>
+      <body className={plusJakartaSans.className}>{children}</body>
     </html>
   );
 }

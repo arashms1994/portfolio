@@ -3,12 +3,56 @@
 import React, { useEffect, useRef } from 'react';
 import Icon from '@/components/ui/AppIcon';
 import AppImage from '@/components/ui/AppImage';
+import { useCountUp } from '@/lib/hooks/useCountUp';
 
-const stats = [
-  { label: 'Projects Shipped', value: '20+' },
-  { label: 'Years Experience', value: '3' },
-  { label: 'GitHub Commits', value: '1.2k' },
+interface Stat {
+  label: string;
+  target: number;
+  suffix: string;
+  decimals?: number;
+}
+
+const stats: Stat[] = [
+  { label: 'Projects Shipped', target: 20, suffix: '+' },
+  { label: 'Years Experience', target: 3, suffix: '' },
+  { label: 'GitHub Commits', target: 1.2, suffix: 'k', decimals: 1 },
 ];
+
+const marqueeTech = [
+  'React',
+  'Next.js',
+  'TypeScript',
+  'Tailwind CSS',
+  'Node.js',
+  'Figma',
+  'Vercel',
+  'REST APIs',
+  'Framer Motion',
+  'OpenAI API',
+];
+
+function StatCard({ stat, index }: { stat: Stat; index: number }) {
+  const { value, ref } = useCountUp(stat.target, 1600, stat.decimals ?? 0);
+  const display = value.toFixed(stat.decimals ?? 0);
+
+  return (
+    <div
+      ref={ref as React.RefObject<HTMLDivElement>}
+      className="glass-card rounded-2xl p-5 hover:border-primary/30 hover:-translate-y-1 hover:shadow-xl hover:shadow-primary/5 transition-all duration-300 cursor-default group"
+      style={{ animationDelay: `${400 + index * 100}ms` }}
+    >
+      <div className="flex items-center justify-between mb-1">
+        <span className="text-xs text-muted-foreground uppercase tracking-widest font-medium">
+          {stat.label}
+        </span>
+      </div>
+      <div className="text-3xl font-bold text-foreground tracking-tight tabular-nums">
+        {display}
+        {stat.suffix}
+      </div>
+    </div>
+  );
+}
 
 export default function HeroSection() {
   const heroRef = useRef<HTMLDivElement>(null);
@@ -53,11 +97,17 @@ export default function HeroSection() {
         {/* Gradient scrims */}
         <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/50 to-background" />
         <div className="absolute inset-0 bg-gradient-to-r from-background/70 via-transparent to-background/70" />
+
+        {/* Aurora wash */}
+        <div className="absolute inset-0 aurora opacity-70 dark:opacity-60" />
+
+        {/* Floating grid */}
+        <div className="absolute inset-0 bg-grid opacity-[0.15] dark:opacity-[0.08]" />
       </div>
 
       {/* Atmospheric blobs */}
       <div
-        className="parallax-blob-1 absolute top-1/4 right-1/4 w-96 h-96 rounded-full pointer-events-none transition-transform duration-700 ease-out"
+        className="parallax-blob-1 blob-drift absolute top-1/4 right-1/4 w-96 h-96 rounded-full pointer-events-none transition-transform duration-700 ease-out"
         style={{
           background: 'radial-gradient(circle, rgba(200,240,76,0.12) 0%, transparent 70%)',
           filter: 'blur(60px)',
@@ -65,7 +115,7 @@ export default function HeroSection() {
       />
 
       <div
-        className="parallax-blob-2 absolute bottom-1/3 left-1/3 w-80 h-80 rounded-full pointer-events-none transition-transform duration-700 ease-out"
+        className="parallax-blob-2 blob-drift absolute bottom-1/3 left-1/3 w-80 h-80 rounded-full pointer-events-none transition-transform duration-700 ease-out"
         style={{
           background: 'radial-gradient(circle, rgba(200,240,76,0.07) 0%, transparent 70%)',
           filter: 'blur(80px)',
@@ -73,28 +123,17 @@ export default function HeroSection() {
       />
 
       {/* Content */}
-      <div className="relative z-10 max-w-6xl mx-auto px-6 pt-24 pb-16">
+      <div className="relative z-10 max-w-6xl mx-auto px-6 pt-24 pb-16 w-full">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           {/* Left: Hero Copy */}
           <div className="lg:col-span-8">
-            {/* Status pill */}
-            {/* <div
-              className="animate-fade-in-up inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-border bg-card/60 backdrop-blur-md text-xs font-semibold text-muted-foreground mb-8 uppercase tracking-widest">
-
-              <span
-                className="w-1.5 h-1.5 rounded-full bg-primary"
-                style={{ animation: 'pulse-ring 2s infinite' }} />
-
-              Available for Hire · 2026
-            </div> */}
-
             {/* Headline */}
             <h1
               className="animate-fade-in-up delay-100 font-bold tracking-tight leading-none mb-6"
               style={{ fontSize: 'clamp(3rem, 8vw, 6rem)' }}
             >
               <span className="block text-foreground">Arash</span>
-              <span className="block text-gradient-lime">Moghadam Salimi</span>
+              <span className="block text-gradient-animated">Moghadam Salimi</span>
               <span
                 className="block font-light text-muted-foreground"
                 style={{ fontSize: 'clamp(1.5rem, 4vw, 3rem)' }}
@@ -142,20 +181,21 @@ export default function HeroSection() {
           {/* Right: Stat Cards */}
           <div className="lg:col-span-4 flex flex-col gap-4 animate-fade-in-up delay-400">
             {stats.map((stat, i) => (
-              <div
-                key={stat.label}
-                className="glass-card rounded-2xl p-5 hover:border-primary/30 transition-all duration-300 cursor-default group"
-                style={{ animationDelay: `${400 + i * 100}ms` }}
+              <StatCard key={stat.label} stat={stat} index={i} />
+            ))}
+          </div>
+        </div>
+
+        {/* Tech marquee */}
+        <div className="animate-fade-in-up delay-500 mt-16 marquee-mask overflow-hidden">
+          <div className="flex w-max animate-marquee gap-3">
+            {[...marqueeTech, ...marqueeTech].map((tech, i) => (
+              <span
+                key={`${tech}-${i}`}
+                className="px-4 py-2 rounded-full border border-border bg-card/50 text-xs font-medium text-muted-foreground whitespace-nowrap"
               >
-                <div className="flex items-center justify-between mb-1">
-                  <span className="text-xs text-muted-foreground uppercase tracking-widest font-medium">
-                    {stat.label}
-                  </span>
-                </div>
-                <div className="text-3xl font-bold text-foreground tracking-tight">
-                  {stat.value}
-                </div>
-              </div>
+                {tech}
+              </span>
             ))}
           </div>
         </div>
@@ -166,7 +206,9 @@ export default function HeroSection() {
         <span className="text-xs text-muted-foreground uppercase tracking-widest font-medium">
           Scroll
         </span>
-        <div className="w-px h-8 bg-gradient-to-b from-muted-foreground/60 to-transparent" />
+        <div className="w-1 h-10 rounded-full border border-border flex justify-center p-1">
+          <span className="w-0.5 h-2 rounded-full bg-primary animate-bounce" />
+        </div>
       </div>
     </section>
   );

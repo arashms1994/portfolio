@@ -1,8 +1,9 @@
 'use client';
 
-import React, { useEffect, useRef } from 'react';
+import React from 'react';
 import AppImage from '@/components/ui/AppImage';
 import Icon from '@/components/ui/AppIcon';
+import { useScrollReveal } from '@/lib/hooks/useScrollReveal';
 
 const highlights = [
   {
@@ -23,31 +24,18 @@ const highlights = [
 ];
 
 export default function AboutSection() {
-  const sectionRef = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('scroll-reveal-visible');
-            entry.target.classList.remove('scroll-reveal-hidden');
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
-    const els = sectionRef.current?.querySelectorAll('.reveal-item');
-    els?.forEach((el) => observer.observe(el));
-    return () => observer.disconnect();
-  }, []);
+  const sectionRef = useScrollReveal<HTMLElement>();
 
   return (
-    <section id="about" className="py-24 px-6 border-b border-border" ref={sectionRef}>
+    <section
+      id="about"
+      className="py-24 px-6 border-b border-border overflow-hidden"
+      ref={sectionRef}
+    >
       <div className="max-w-6xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
           {/* Left: Photo + floating stat */}
-          <div className="reveal-item scroll-reveal-hidden relative">
+          <div className="reveal-item reveal-left scroll-reveal-hidden relative">
             <div className="relative rounded-2xl overflow-hidden aspect-[4/3] group border border-border">
               <AppImage
                 src="https://img.rocket.new/generatedImages/rocket_gen_img_1d42d46d1-1770558252213.png"
@@ -68,7 +56,7 @@ export default function AboutSection() {
 
               {/* Bottom text */}
               <div className="absolute bottom-4 left-4 right-4">
-                <p className="text-white/70 text-xs font-mono">// always learning</p>
+                <p className="text-white/70 text-xs font-mono">{'// always learning'}</p>
               </div>
             </div>
 
@@ -89,7 +77,7 @@ export default function AboutSection() {
 
           {/* Right: About copy */}
           <div
-            className="reveal-item scroll-reveal-hidden flex flex-col justify-between h-full"
+            className="reveal-item reveal-right scroll-reveal-hidden flex flex-col justify-between h-full"
             style={{ transitionDelay: '150ms' }}
           >
             <div>
@@ -110,8 +98,7 @@ export default function AboutSection() {
                 <p>
                   My experience includes working on B2B SaaS platforms, design tools, and AI-driven
                   interfaces. I pay close attention to detail — from accessibility and performance
-                  to the subtle micro-interactions that make products feel intuitive and
-                  engaging.
+                  to the subtle micro-interactions that make products feel intuitive and engaging.
                 </p>
                 <p>
                   Outside of coding, I explore the intersection of AI and user interfaces,

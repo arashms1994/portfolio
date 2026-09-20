@@ -1,7 +1,8 @@
 'use client';
 
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useState } from 'react';
 import Icon from '@/components/ui/AppIcon';
+import { useScrollReveal } from '@/lib/hooks/useScrollReveal';
 
 const socials = [
   {
@@ -20,25 +21,8 @@ const socials = [
 ];
 
 export default function ContactSection() {
-  const sectionRef = useRef<HTMLDivElement>(null);
+  const sectionRef = useScrollReveal<HTMLElement>();
   const [copied, setCopied] = useState(false);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('scroll-reveal-visible');
-            entry.target.classList.remove('scroll-reveal-hidden');
-          }
-        });
-      },
-      { threshold: 0.1 }
-    );
-    const els = sectionRef.current?.querySelectorAll('.reveal-item');
-    els?.forEach((el) => observer.observe(el));
-    return () => observer.disconnect();
-  }, []);
 
   const handleCopyEmail = () => {
     navigator.clipboard.writeText('arash.ms1994@gmail.com').then(() => {
